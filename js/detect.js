@@ -26,6 +26,7 @@
 				var elem = {
 					"message" : line,
 					"messageHTML": line.replace(/(@\w+)/g, "<a href=\"#$1\">$1</a>"),
+					"badgeHTML" : "<span class=\"badge\"><a href=\"#"+clue+"\">"+clue+"</a></span>",
 					"people" : people,
 					"clue"	: clue
 				};
@@ -55,13 +56,9 @@
 
 		var historyElem = document.getElementById("history");
 		historyElem.innerText = "";
-		for(h in history){
-			var clue = history[h];
-			console.log(clue);
-			var tmpMessage = history[h].message;
-			tmpMessage = tmpMessage.replace(/(@\w+)/g, "<a href=\"#$1\">$1</a>");
-			var tmpClue = "<a hre=\"#"+clue.clue+"\" class=\"clue\">"+clue.clue+"</a>";
-			console.log(tmpMessage+tmpClue);
+		for(c in byClue){
+			var cardElem = createCard(c, byClue[c]);
+			historyElem.appendChild(cardElem);
 		}
 	}
 
@@ -86,8 +83,8 @@
 		for(item in list){
 			var itemElem = document.createElement("li");
 			itemElem.className = "list-group-item";
-			var tmpClue = history[list[item]].message;
-			tmpClue = tmpClue.replace(/(@\w+)/g, "<a href=\"#$1\">$1</a>");
+			var tmpClue = history[list[item]].messageHTML
+			tmpClue += history[list[item]].badgeHTML;
 			itemElem.innerHTML = tmpClue;
 			listElem.appendChild(itemElem);
 		}
