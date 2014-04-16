@@ -28,18 +28,33 @@
 
 	<body>
 
-<ul class="nav nav-tabs">
-	<li class="active"><a href="#editor" data-toggle="tab">Editor</a></li>
-	<li><a href="#history" data-toggle="tab">History</a></li>
-	<li><a href="#people" data-toggle="tab">People</a></li>
-</ul>
+    <div class="navbar navbar-default" role="navigation">
+    	<div class="container">
+    		<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-menu">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+    			<a class="navbar-brand" href="#editor">CASE</a>
+    		</div>
+    		<div class="collapse navbar-collapse" id="main-menu">
+				<ul class="nav navbar-nav">
+					<li class="active"><a href="#editor" data-toggle="tab">Editor</a></li>
+					<li><a href="#history" data-toggle="tab">History</a></li>
+					<li><a href="#people" data-toggle="tab">People</a></li>
+				</ul>
+    		</div>
+    	</div>
+    </div>
 
-<div class="tab-content">
-	<div class="tab-pane active" id="editor">
-		<button type="button" id="save-btn" class="btn btn-primary">
-			Save
-		</button>
-		<pre class="prettyprint lang-case" id="code" contenteditable>:CASE
+<div class="container">
+	<div class="tab-content">
+		<div class="tab-pane active" id="editor">
+			<div class="row">
+				<div class="col-md-12">
+					<pre class="prettyprint lang-case" id="code" contenteditable="true" style="height:300px;">:CASE
 @CourtneyAllen es la víctima
 @HenryAllen es el hermano de @CourtneyAllen
 @HenryRagland es el 1º vicepresidente
@@ -53,14 +68,23 @@
 @AleksiMeshkov es un ruso gigante y cojo
 :12SE
 @AleksiMeshkov quedó con @HenryRagland a escondidas</pre>
-	</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<button type="button" id="save-btn" class="btn btn-primary">Save</button>
+				</div>
+			</div>
+			
+		</div>
 
-	<div class="tab-pane" id="history">
-		<div id="history"></div>
-	</div>
-	
-	<div class="tab-pane" id="people">
-		<div id="people"></div>
+		<div class="tab-pane" id="history">
+			<div id="history"></div>
+		</div>
+		
+		<div class="tab-pane" id="people">
+			<div id="people"></div>
+		</div>
 	</div>
 </div>
 		
