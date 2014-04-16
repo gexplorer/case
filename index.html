@@ -95,19 +95,13 @@
 
 		<script>
 			$('#save-btn').click(function () {
-				console.log("save");
-				processEditor();
-				updateEditor();
+				Case.processEditor();
+				Case.updateEditor();
 			});
 
 			$("#code").on("blur", function(){
-				updateEditor();
+				Case.updateEditor();
 			});
-
-			function updateEditor(){
-				$("#code").removeClass("prettyprinted");
-				PR.prettyPrint();
-			}
 		</script>
 	</body>
 </html>
