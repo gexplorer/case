@@ -45,7 +45,6 @@
 				}
 			}
 		}
-		console.table(history);
 		
 		var peopleElem = document.getElementById("people");
 		peopleElem.innerText = "";
