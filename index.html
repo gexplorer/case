@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Detect</title>
+
+		<!-- Bootstrap -->
+		<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+		<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
+
+		<script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
+		<script src="js/lang-case.js"></script>
+
+		<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+		<!--[if lt IE 9]>
+		<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+		<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+		<![endif]-->
+
+		<script type="text/javascript" src="js/detect.js"></script>
+
+	</head>
+
+	<body>
+
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title">Editor</h3>
+			</div>
+			<div class="panel-body">
+				<button type="button" id="save-btn" class="btn btn-primary">
+					Save
+				</button>
+				<pre class="prettyprint lang-case" id="editor" contenteditable>:CASE
+@CourtneyAllen es la víctima
+@HenryAllen es el hermano de @CourtneyAllen
+@HenryRagland es el 1º vicepresidente
+@PhilipMarlowe es el 2º vicepresidente
+:42NO
+@PhilipMarlowe es el sucesor de @CourtneyAllen en lugar de @HenryRagland
+:23SO
+@HenryRagland tiene problemas financieros
+@RichardCamp está liado con la sobrina de @EmileZobar</pre>
+			</div>
+		</div>
+
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title">History</h3>
+			</div>
+			<div class="panel-body">
+				<div id="history"></div>
+			</div>
+		</div>
+
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title">People</h3>
+			</div>
+			<div class="panel-body">
+				<div id="people"></div>
+			</div>
+		</div>
+		
+		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+		<!-- Include all compiled plugins (below), or include individual files as needed -->
+		<script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+
+		<script>
+			$('#save-btn').click(function () {
+				var btn = $(this)
+				processEditor();
+			});
+		</script>
+	</body>
+</html>
