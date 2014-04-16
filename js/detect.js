@@ -13,6 +13,7 @@ Case.prototype.processEditor = function(){
 
 Case.prototype.compile = function(code){
 	this.indexPeople = new Array();
+	this.indexTags = new Array();
 	this.indexLocation = new Array();
 	this.casebook = new Array();
 
@@ -36,6 +37,14 @@ Case.prototype.compile = function(code){
 				}
 				this.indexPeople[person].push(id);
 			}
+
+			for(t in clue.tags){
+				var tag = clue.tags[t];
+				if(!this.indexTags[tag]){
+					this.indexTags[tag] = new Array();
+				}
+				this.indexTags[tag].push(id);
+			}
 		}
 	}
 }
@@ -46,6 +55,13 @@ Case.prototype.render = function(){
 	for(p in this.indexPeople){
 		var cardElem = this.createCard(p, this.indexPeople[p]);
 		peopleElem.appendChild(cardElem);
+	}
+
+	var tagsElem = document.getElementById("tags-data");
+	tagsElem.innerText = "";
+	for(t in this.indexTags){
+		var cardElem = this.createCard(t, this.indexTags[t]);
+		tagsElem.appendChild(cardElem);
 	}
 
 	var historyElem = document.getElementById("history-data");
@@ -95,9 +111,9 @@ var Case = new Case();
 
 function Clue(location, message){
 	this.message = message;
-	this.messageHTML = message.replace(/(@\w+)/g, "<a href=\"#$1\">$1</a>");
+	this.messageHTML = message.replace(/([@#]\w+)/g, "<a href=\"#$1\">$1</a>");
 	this.badgeHTML = "<span class=\"badge\"><a href=\"#"+location+"\">"+location+"</a></span>";
 	this.people = message.match(/@\w+/g);
-	//this.tags = message.match(/#\w+/g);
+	this.tags = message.match(/#\w+/g);
 	this.location = location;
 }
