@@ -1,10 +1,7 @@
 function Case(){
-	this.regPeople = /@\w+/g;
-
-	this.messages;
-	this.book;
+	this.casebook;
 	this.indexPeople;
-	this.indexClue;
+	this.indexLocation;
 }
 
 Case.prototype.processEditor = function(){
@@ -16,31 +13,24 @@ Case.prototype.processEditor = function(){
 
 Case.prototype.compile = function(code){
 	this.indexPeople = new Array();
-	this.indexClue = new Array();
-	this.book = new Array();
+	this.indexLocation = new Array();
+	this.casebook = new Array();
 
-	var clue = "";
+	var location = "";
 	for(l in code){
 		var line = code[l];
 		if(line[0] == ":"){
-			clue = line;
-		}else if(clue != ""){
-			var people = this.extractPeople(line);
-			var elem = {
-				"message" : line,
-				"messageHTML": line.replace(/(@\w+)/g, "<a href=\"#$1\">$1</a>"),
-				"badgeHTML" : "<span class=\"badge\"><a href=\"#"+clue+"\">"+clue+"</a></span>",
-				"people" : people,
-				"clue"	: clue
-			};
-			var id = this.book.push(elem)-1;
-			if(!this.indexClue[clue]){
-				this.indexClue[clue] = new Array();
+			location = line;
+		}else if(location != ""){
+			var clue = new Clue(location, line);
+			var id = this.casebook.push(clue)-1;
+			if(!this.indexLocation[location]){
+				this.indexLocation[location] = new Array();
 			}
-			this.indexClue[clue].push(id);
+			this.indexLocation[location].push(id);
 
-			for(p in people){
-				var person = people[p];
+			for(p in clue.people){
+				var person = clue.people[p];
 				if(!this.indexPeople[person]){
 					this.indexPeople[person] = new Array();
 				}
@@ -60,8 +50,8 @@ Case.prototype.render = function(){
 
 	var historyElem = document.getElementById("history");
 	historyElem.innerText = "";
-	for(c in this.indexClue){
-		var cardElem = this.createCard(c, this.indexClue[c]);
+	for(l in this.indexLocation){
+		var cardElem = this.createCard(l, this.indexLocation[l]);
 		historyElem.appendChild(cardElem);
 	}
 }
@@ -87,16 +77,13 @@ Case.prototype.createCard = function(title, list){
 	for(item in list){
 		var itemElem = document.createElement("li");
 		itemElem.className = "list-group-item";
-		var tmpClue = this.book[list[item]].messageHTML
-		tmpClue += this.book[list[item]].badgeHTML;
-		itemElem.innerHTML = tmpClue;
+		var clue = this.casebook[list[item]];
+		var clueHTML = clue.messageHTML
+		clueHTML += clue.badgeHTML;
+		itemElem.innerHTML = clueHTML;
 		listElem.appendChild(itemElem);
 	}
 	return cardElem;
-}
-
-Case.prototype.extractPeople = function(text){
-	return text.match(this.regPeople);
 }
 
 Case.prototype.updateEditor = function(){
@@ -105,3 +92,12 @@ Case.prototype.updateEditor = function(){
 }
 
 var Case = new Case();
+
+function Clue(location, message){
+	this.message = message;
+	this.messageHTML = message.replace(/(@\w+)/g, "<a href=\"#$1\">$1</a>");
+	this.badgeHTML = "<span class=\"badge\"><a href=\"#"+location+"\">"+location+"</a></span>";
+	this.people = message.match(/@\w+/g);
+	//this.tags = message.match(/#\w+/g);
+	this.location = location;
+}
