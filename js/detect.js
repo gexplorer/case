@@ -8,19 +8,20 @@ function Case(){
 }
 
 Case.prototype.processEditor = function(){
-	var code = document.getElementById("code");
-	var lines = code.innerText.split('\n');
-	this.parseText(lines);
+	var codeElem = document.getElementById("code");
+	var code = codeElem.innerText.split('\n');
+	this.compile(code);
+	this.render();
 }
 
-Case.prototype.parseText = function(lines){
+Case.prototype.compile = function(code){
 	this.indexPeople = new Array();
 	this.indexClue = new Array();
 	this.book = new Array();
 
 	var clue = "";
-	for(l in lines){
-		var line = lines[l];
+	for(l in code){
+		var line = code[l];
 		if(line[0] == ":"){
 			clue = line;
 		}else if(clue != ""){
@@ -47,7 +48,9 @@ Case.prototype.parseText = function(lines){
 			}
 		}
 	}
-	
+}
+
+Case.prototype.render = function(){
 	var peopleElem = document.getElementById("people");
 	peopleElem.innerText = "";
 	for(p in this.indexPeople){
