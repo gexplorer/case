@@ -6,8 +6,8 @@
 	var byClue;
 
 	function processEditor(){
-		var editor = document.getElementById("editor");
-		var lines = editor.innerText.split('\n');
+		var code = document.getElementById("code");
+		var lines = code.innerText.split('\n');
 		parseText(lines);
 	}
 
