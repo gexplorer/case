@@ -72,7 +72,8 @@
 
 		<script>
 			$('#save-btn').click(function () {
-				var btn = $(this)
+				$("#editor").removeClass("prettyprinted");
+				PR.prettyPrint();
 				processEditor();
 			});
 		</script>
