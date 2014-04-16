@@ -41,14 +41,14 @@ Case.prototype.compile = function(code){
 }
 
 Case.prototype.render = function(){
-	var peopleElem = document.getElementById("people");
+	var peopleElem = document.getElementById("people-data");
 	peopleElem.innerText = "";
 	for(p in this.indexPeople){
 		var cardElem = this.createCard(p, this.indexPeople[p]);
 		peopleElem.appendChild(cardElem);
 	}
 
-	var historyElem = document.getElementById("history");
+	var historyElem = document.getElementById("history-data");
 	historyElem.innerText = "";
 	for(l in this.indexLocation){
 		var cardElem = this.createCard(l, this.indexLocation[l]);
