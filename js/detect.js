@@ -52,30 +52,71 @@ Case.prototype.compile = function(code){
 Case.prototype.render = function(){
 	var peopleElem = document.getElementById("people-data");
 	peopleElem.innerText = "";
-	for(p in this.indexPeople){
-		var cardElem = this.createCard(p, this.indexPeople[p]);
-		peopleElem.appendChild(cardElem);
+	var gridPeople = this.generateGrid(this.indexPeople);
+	for(r in gridPeople){
+		var row = document.createElement("div");
+		row.className = "row";
+		for(c in gridPeople[r]){
+			row.appendChild(gridPeople[r][c]);
+		}
+		peopleElem.appendChild(row);
 	}
 
 	var tagsElem = document.getElementById("tags-data");
 	tagsElem.innerText = "";
-	for(t in this.indexTags){
-		var cardElem = this.createCard(t, this.indexTags[t]);
-		tagsElem.appendChild(cardElem);
+	var gridTags = this.generateGrid(this.indexTags);
+	for(r in gridTags){
+		var row = document.createElement("div");
+		row.className = "row";
+		for(c in gridTags[r]){
+			row.appendChild(gridTags[r][c]);
+		}
+		tagsElem.appendChild(row);
 	}
 
 	var historyElem = document.getElementById("history-data");
 	historyElem.innerText = "";
-	for(l in this.indexLocation){
-		var cardElem = this.createCard(l, this.indexLocation[l]);
-		historyElem.appendChild(cardElem);
+	var gridHistory = this.generateGrid(this.indexLocation);
+	for(r in gridHistory){
+		var row = document.createElement("div");
+		row.className = "row";
+		for(c in gridHistory[r]){
+			row.appendChild(gridHistory[r][c]);
+		}
+		historyElem.appendChild(row);
 	}
 }
 
+Case.prototype.generateGrid = function(index){
+	var result = [];
+	var x = 0;
+	var n = 0;
+	for(p in index){
+		var cardElem = this.createCard(p, index[p]);
+		if(!result[x]){
+			result.push([]);
+		}
+
+		result[x].push(cardElem);
+		if(n == 1){
+			n = 0;
+			x++;
+		}else{
+			n++;
+		}
+	}
+	console.log(result);
+	return result;
+}
+
 Case.prototype.createCard = function(title, list){
+	var cellElem = document.createElement("div");
+	cellElem.className = "col-md-6";
+
 	var cardElem = document.createElement("div");
 	cardElem.id = title.substr(1);
 	cardElem.className = "panel panel-default";
+	cellElem.appendChild(cardElem);
 
 	var headingElem = document.createElement("div");
 	headingElem.className = "panel-heading";
@@ -99,7 +140,7 @@ Case.prototype.createCard = function(title, list){
 		itemElem.innerHTML = clueHTML;
 		listElem.appendChild(itemElem);
 	}
-	return cardElem;
+	return cellElem;
 }
 
 Case.prototype.updateEditor = function(){
