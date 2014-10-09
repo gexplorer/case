@@ -94,8 +94,8 @@ Case.prototype.createCard = function(title, list){
 		var itemElem = document.createElement("li");
 		itemElem.className = "list-group-item";
 		var clue = this.casebook[list[item]];
-		var clueHTML = clue.messageHTML
-		clueHTML += clue.badgeHTML;
+		var clueHTML = clue.badgeHTML;
+		clueHTML += clue.messageHTML;
 		itemElem.innerHTML = clueHTML;
 		listElem.appendChild(itemElem);
 	}
@@ -112,7 +112,7 @@ var Case = new Case();
 function Clue(location, message){
 	this.message = message;
 	this.messageHTML = message.replace(/([@#])(\w+)/g, "<a href=\"#$2\" onclick=\"clickClue('$1', '$2')\">$1$2</a>");
-	this.badgeHTML = "<span class=\"badge\"><a href=\"#"+location.substr(1)+"\" onclick=\"clickClue(':', '"+location.substr(1)+"')\">"+location+"</a></span>";
+	this.badgeHTML = "<span class=\"badge\"><a href=\"#"+location.substr(1)+"\" onclick=\"clickClue(':', '"+location.substr(1)+"')\">"+location.substr(1)+"</a></span>";
 	this.people = message.match(/@\w+/g);
 	this.tags = message.match(/#\w+/g);
 	this.location = location;
